@@ -1,0 +1,130 @@
+{
+  "layer": "top",
+  "position": "top",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "ipc": "/tmp/waybar.sock",
+  "height": 0,
+  "modules-left": ["hyprland/workspaces"],
+
+  "modules-center": ["hyprland/window"],
+
+  "modules-right": [
+    "bluetooth",
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock",
+    "custom/idle",
+  ],
+
+  "hyprland/window": {
+    "separate-outputs": true,
+  },
+
+  "custom/idle": {
+    "format": "{icon} ",
+    "format-icons": ["零", "鈴"], // or  and ﮌ
+    "exec": "$HOME/.config/hypr/scripts/idlectl.sh monitor",
+    "on-click": "$HOME/.config/hypr/scripts/idlectl.sh toggle",
+    "return-type": "json",
+  },
+
+  "clock": {
+    "interval": 1,
+    "timezone": "Europe/Kyiv",
+    "locale": "fr_BE.utf8",
+    "format": "{:%a %d %b %I:%M %p}",
+    "tooltip": true,
+  },
+
+  "tray": {
+    "icon-size": 15,
+    "spacing": 10,
+  },
+
+  "custom/sunset": {
+    "format": "{icon} ",
+    "format-icons": ["󰹏", "󰛨"],
+    "exec": "$HOME/.config/hypr/scripts/sunsetctl monitor",
+    "on-click": "$HOME/.config/hypr/scripts/sunsetctl toggle",
+    "return-type": "json",
+  },
+
+  "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click-right": "blueman-manager",
+  },
+
+  "network": {
+    "format-wifi": "{icon}  {essid}",
+    "format-ethernet": " {ifname}: Aesthetic",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "󰤭",
+    "format-alt": " {ifname}: {ipaddr}/{cidr} {signaldBm}dBm",
+    "tooltip-format": "{essid} ({ifname})\n{ipaddr}/{cidr} {signaldBm}dBm",
+    "on-click-right": "nm-connection-editor",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"],
+    },
+    "on-click-right": "pavucontrol",
+  },
+
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon}   {capacity}%",
+    "format-charging": "󱐋 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip-format": "{capacity}% ({time})",
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "urgent": "!",
+      "default": "",
+    },
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "*": [1, 2, 3],
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+  }
+}
